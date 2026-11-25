@@ -24,18 +24,41 @@ function blackhole(element) {
 
 	context.globalCompositeOperation = "multiply";
 
-	function setDPI(canvas, dpi) {
-		// Set up CSS size if it's not set up already
-		if (!canvas.get(0).style.width)
-			canvas.get(0).style.width = canvas.get(0).width + 'px';
-		if (!canvas.get(0).style.height)
-			canvas.get(0).style.height = canvas.get(0).height + 'px';
+	function resizeCanvas() {
+		var el = canvas.get(0);
+		var oldCenterY = centery;
 
-		var scaleFactor = dpi / 96;
-		canvas.get(0).width = Math.ceil(canvas.get(0).width * scaleFactor);
-		canvas.get(0).height = Math.ceil(canvas.get(0).height * scaleFactor);
-		var ctx = canvas.get(0).getContext('2d');
-		ctx.scale(scaleFactor, scaleFactor);
+		cw = $(element).width();
+		ch = $(element).height();
+		centerx = cw/2;
+		centery = ch/2;
+
+		var scaleFactor = 192 / 96;
+		el.style.width = '100%';
+		el.style.height = '100%';
+		el.width = Math.ceil(cw * scaleFactor);
+		el.height = Math.ceil(ch * scaleFactor);
+		context.scale(scaleFactor, scaleFactor);
+
+		context.fillStyle = 'rgba(25,25,25,1)';
+		context.fillRect(0, 0, cw, ch);
+
+		var dy = centery - oldCenterY;
+		for(var i = 0; i < stars.length; i++){
+			var s = stars[i];
+			s.x = centerx;
+			s.y += dy;
+			s.yOrigin += dy;
+			s.hoverPos += dy;
+			s.expansePos += dy;
+			s.prevX = centerx;
+			s.prevY += dy;
+		}
+	}
+
+	function onResize() {
+		if(!running) return;
+		resizeCanvas();
 	}
 
 	function rotate(cx, cy, x, y, angle) {
@@ -47,7 +70,11 @@ function blackhole(element) {
 		return [nx, ny];
 	}
 
-	setDPI(canvas, 192);
+	resizeCanvas();
+
+	window.addEventListener('resize', onResize);
+	document.addEventListener('fullscreenchange', onResize);
+	document.addEventListener('webkitfullscreenchange', onResize);
 
 	var star = function(){
 
@@ -154,6 +181,9 @@ function blackhole(element) {
 
 			setTimeout(function(){
 				running = false;
+				window.removeEventListener('resize', onResize);
+				document.removeEventListener('fullscreenchange', onResize);
+				document.removeEventListener('webkitfullscreenchange', onResize);
 				$(element).remove();
 			}, 1000);
 		}, 1500);
