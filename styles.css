@@ -88,3 +88,29 @@ canvas {
 	height: 100%;
 	margin: auto;
 }
+:root {
+  --bg: rgb(25, 25, 25);
+  --surface: #222;
+  --border: #333;
+  --text: #e7e7e7;
+  --muted: #a0a0a0;
+  --accent: #98ffcc;
+}
+html { height: 100%; }
+
+body {
+  height: 100%;
+  margin: 0;
+  background-color: var(--bg);
+  color: var(--text);
+  font-family: "Epilogue", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  line-height: 1.6;
+}
+
+a { color: var(--accent); }
+
+h1, h2 {
+  font-family: "Epilogue", system-ui, sans-serif;
+  font-weight: 800;
+  letter-spacing: -0.01em;
+}
