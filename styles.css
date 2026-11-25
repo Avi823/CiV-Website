@@ -1,0 +1,90 @@
+body, html { height: 100%; }
+body {
+	height: 100%;
+	background-color: rgba(25,25,25,1);
+}
+
+#blackhole {
+    position: fixed;
+	inset: 0;
+	z-index: 100;
+    display: flex;
+    transition: opacity 1s ease, visibility 1s;
+}
+html:not(.skip-intro) body:not(.entered){
+overflow: hidden; }
+
+body.entered #blackhole{
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+}
+body { color: #e7e7e7; }
+a { color: #98ffcc; }
+html.skip-intro #blackhole { display: none; }
+
+
+.centerHover {
+	width: 255px;
+	height: 255px;
+	background-color: transparent;
+	border-radius: 50%;
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	margin-top: -128px;
+	margin-left: -128px;
+	z-index: 2;
+	cursor: pointer;
+	line-height: 255px;
+	text-align: center;
+	transition: all 500ms;
+	
+	&.open  {
+		opacity: 0;
+		pointer-events: none;
+	}
+	
+	&:hover span {
+		color: #e7e7e7;
+		
+		&:before { background-color: #DDD; }
+		&:after { background-color: #fcfbfb; }
+	}
+	
+	span {
+		color: #666;
+		font-family: serif;
+		font-size: 18px;
+		position: relative;
+		transition: all 500ms;
+		
+		&:before {
+			content: '';
+			display: inline-block;
+			height: 1px;
+			width: 16px;
+			margin-right: 12px;
+			margin-bottom: 4px;
+			background-color: #666;
+			transition: all 500ms;
+		}
+		&:after {
+			content: '';
+			display: inline-block;
+			height: 1px;
+			width: 16px;
+			margin-left: 12px;
+			margin-bottom: 4px;
+			background-color: #666;
+			transition: all 500ms;
+		}
+	}
+}
+canvas {
+	position: relative;
+	z-index: 1;
+	width: 100%;
+	height: 100%;
+	margin: auto;
+}
