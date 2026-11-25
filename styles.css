@@ -225,3 +225,45 @@ a:focus-visible {
 @media (max-width: 600px) {
   .main-content section { padding: 1.1rem; }
 }
+
+.instagram-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin-top: 0.5rem;
+  padding: 0.75rem 1.5rem;
+  background: var(--accent);
+  color: #111;
+  font-weight: 700;
+  text-decoration: none;
+  border-radius: 8px;
+  transition: transform 0.15s, box-shadow 0.15s;
+}
+
+.instagram-btn svg {
+  width: 1.5rem;
+  height: 1.5rem;
+}
+
+.instagram-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(152, 255, 204, 0.25);
+}
+
+.bi-instagram {
+  transform: translateY(3px);
+}
+
+.centerHover:focus-visible,
+a:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 4px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * { transition: none !important; }
+}
+
+@media (max-width: 600px) {
+  .main-content section { padding: 1.1rem; }
+}
